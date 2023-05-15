@@ -10,6 +10,7 @@ import { UiFactoryBackstage } from '../../backstage/Backstage';
 import { ToolbarConfig } from '../../Render';
 import { renderMenuButton } from '../button/MenuButton';
 import { createAlignButton } from '../core/complex/AlignBespoke';
+import { createBespokeTextInput } from '../core/complex/BespokeTextInput';
 import { createBlocksButton } from '../core/complex/BlocksBespoke';
 import { createFontFamilyButton } from '../core/complex/FontFamilyBespoke';
 import { createFontSizeButton, createFontSizeInputButton } from '../core/complex/FontSizeBespoke';
@@ -118,7 +119,8 @@ const bespokeButtons: Record<string, (editor: Editor, backstage: UiFactoryBackst
   fontsizeinput: createFontSizeInputButton,
   fontfamily: createFontFamilyButton,
   blocks: createBlocksButton,
-  align: createAlignButton
+  align: createAlignButton,
+  textinput: createBespokeTextInput
 };
 
 const removeUnusedDefaults = (buttons: RenderToolbarConfig['buttons']) => {

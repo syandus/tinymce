@@ -13,7 +13,7 @@ export default (): void => {
     selector: 'div.tiny-text',
     inline: false,
     theme: 'silver',
-    toolbar: [ 'styles', 'MagicButton', 'code', 'undo', 'redo', 'preview', '|', 'help', 'link', '|', 'align', 'alignleft', 'alignright', 'aligncenter',
+    toolbar: [ 'bot', 'styles', 'MagicButton', 'code', 'undo', 'redo', 'preview', '|', 'help', 'link', '|', 'align', 'alignleft', 'alignright', 'aligncenter',
       'alignjustify', 'alignnone', '|', 'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', '|', 'blockquote',
       'outdent', 'indent', '|', 'cut', 'copy', 'paste', '|', 'help', 'selectall', 'visualaid', 'newdocument', 'removeformat', 'remove', '|', 'menu-button-1', '|', 'mailmerge', 'mailmerge-NoCollapse'
     ].join(' '),
@@ -37,6 +37,7 @@ export default (): void => {
     // statusbar: false,
     resize: 'both',
     link_context_toolbar: true,
+    toolbar_mode: 'sliding',
     toolbar_sticky: true,
     ui_mode: 'split',
     // fixed_toolbar_container: '#tiny-fixed-container', // DEPRECATED
@@ -100,6 +101,10 @@ export default (): void => {
 
     setup: (ed) => {
       ButtonSetupDemo.setup(ed);
+      ed.ui.registry.addGroupToolbarButton('bot', {
+        text: 'bot',
+        items: 'textinput'
+      });
 
       ed.ui.registry.addButton('MagicButton', {
         text: 'yeah button text',
