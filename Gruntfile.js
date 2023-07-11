@@ -71,7 +71,7 @@ const bedrockHeadless = (tests, browser, auto) => {
   }
 };
 
-const bedrockBrowser = (tests, browserName, osName, bucket, buckets, chunk, auto) => {
+const bedrockBrowser = (tests, browserName, osName, bucket, buckets, chunk, farm, auto) => {
   if (tests.length === 0) {
     return {};
   } else {
@@ -85,6 +85,7 @@ const bedrockBrowser = (tests, browserName, osName, bucket, buckets, chunk, auto
         bucket: bucket,
         buckets: buckets,
         chunk: chunk,
+        farm: farm,
 
         // we have a few tests that don't play nicely when combined together in the monorepo
         retries: 3
@@ -137,6 +138,9 @@ module.exports = function (grunt) {
   const activeBrowser = grunt.option('bedrock-browser') || 'chrome-headless';
   const headlessBrowser = activeBrowser.endsWith("-headless") ? activeBrowser : 'chrome-headless';
   const activeOs = grunt.option('bedrock-os') || 'tests';
+
+  const farm = grunt.option('farm');
+
   const gruntConfig = {
     shell: {
       tsc: { command: 'yarn -s tsc' },
@@ -146,7 +150,7 @@ module.exports = function (grunt) {
     },
     'bedrock-auto': {
       ...bedrockHeadless(headlessTests, headlessBrowser, true),
-      ...bedrockBrowser(browserTests, activeBrowser, activeOs, bucket, buckets, chunk, true)
+      ...bedrockBrowser(browserTests, activeBrowser, activeOs, bucket, buckets, chunk, farm, true)
     },
     'bedrock-manual': {
       ...bedrockHeadless(headlessTests, headlessBrowser, false),
@@ -203,6 +207,8 @@ Top-level grunt has been replaced by 'yarn build', and the output has moved from
   require('load-grunt-tasks')(grunt, {
     requireResolution: true,
     config: 'package.json',
-    pattern: ['@ephox/bedrock-server', 'grunt-shell']
+    pattern: ['grunt-shell']
   });
+
+  grunt.loadTasks('../bedrock/modules/server/tasks');
 };
