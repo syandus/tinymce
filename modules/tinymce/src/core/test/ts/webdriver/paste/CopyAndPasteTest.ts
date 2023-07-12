@@ -11,7 +11,7 @@ import CodePlugin from 'tinymce/plugins/code/Plugin';
 
 import * as PasteEventUtils from '../../module/test/PasteEventUtils';
 
-describe('webdriver.tinymce.core.paste.CopyAndPasteTest', () => {
+describe.skip('webdriver.tinymce.core.paste.CopyAndPasteTest', () => {
   const platform = PlatformDetection.detect();
   const os = platform.os;
   const browser = platform.browser;

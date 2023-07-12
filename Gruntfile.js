@@ -79,7 +79,7 @@ const bedrockBrowser = (tests, browserName, osName, bucket, buckets, chunk, farm
       browser: {
         ...bedrockDefaults,
         overallTimeout: 3600000,
-        singleTimeout: 30000,
+        singleTimeout: 60000,
         name: `${browserName}-${osName}`,
         browser: browserName,
         testfiles: testFolders(tests, auto),

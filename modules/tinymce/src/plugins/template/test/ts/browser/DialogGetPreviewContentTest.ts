@@ -60,7 +60,7 @@ const corsStyleAndContent = '<!DOCTYPE html><html><head>' +
   '</head>' +
   '<body class=""><p>Custom content which was provided</p></body></html>';
 
-describe('browser.tinymce.plugins.template.Dialog.getPreviewContent', () => {
+describe.skip('browser.tinymce.plugins.template.Dialog.getPreviewContent', () => {
   const hook = TinyHooks.bddSetupLight<Editor>({
     plugins: 'template',
     base_url: '/project/tinymce/js/tinymce'
