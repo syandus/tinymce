@@ -82,7 +82,7 @@ const bedrockBrowser = (tests, browserName, osName, bucket, buckets, chunk, farm
         singleTimeout: 120000,
         name: `${browserName}-${osName}`,
         browser: browserName,
-        testfiles: ['modules/tinymce/src/core/test/ts/browser/*.ts'], // testFolders(tests, auto),
+        testfiles: testFolders(tests, auto),
         bucket: bucket,
         buckets: buckets,
         chunk: chunk,
