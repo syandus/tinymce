@@ -79,7 +79,7 @@ const bedrockBrowser = (tests, browserName, osName, bucket, buckets, chunk, farm
       browser: {
         ...bedrockDefaults,
         overallTimeout: 3600000,
-        singleTimeout: 120000,
+        singleTimeout: 30000,
         name: `${browserName}-${osName}`,
         browser: browserName,
         testfiles: testFolders(tests, auto),
@@ -89,7 +89,7 @@ const bedrockBrowser = (tests, browserName, osName, bucket, buckets, chunk, farm
         farm: farm,
 
         // we have a few tests that don't play nicely when combined together in the monorepo
-        retries: 3
+        retries: 1
       }
     };
   }

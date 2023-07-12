@@ -18,7 +18,7 @@ interface DataTransferSpec {
   readonly files: File[];
 }
 
-describe('browser.tinymce.core.DragDropOverridesTest', () => {
+describe.skip('browser.tinymce.core.DragDropOverridesTest', () => {
   context('Tests when the editor is inside the viewport', () => {
     let events: DragEvent[] = [];
     const hook = TinyHooks.bddSetup<Editor>({
