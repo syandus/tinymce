@@ -6,7 +6,7 @@ import { assert } from 'chai';
 
 import Editor from 'tinymce/core/api/Editor';
 
-describe.skip('webdriver.tinymce.core.keyboard.IframeTabfocusTest', () => {
+describe('webdriver.tinymce.core.keyboard.IframeTabfocusTest', () => {
   context('Focus shift on pressing tab', () => {
     const hook = TinyHooks.bddSetupLight<Editor>({
       base_url: '/project/tinymce/js/tinymce',
