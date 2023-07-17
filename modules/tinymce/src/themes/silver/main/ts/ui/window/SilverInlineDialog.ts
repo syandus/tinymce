@@ -5,7 +5,7 @@ import {
 } from '@ephox/alloy';
 import { Dialog, DialogManager } from '@ephox/bridge';
 import { Fun, Id, Optional, Optionals } from '@ephox/katamari';
-import { Attribute, Classes, SugarElement, SugarNode } from '@ephox/sugar';
+import { Attribute, Classes, Height, SugarElement, SugarNode } from '@ephox/sugar';
 
 import { UiFactoryBackstage } from '../../backstage/Backstage';
 import { RepresentingConfigs } from '../alien/RepresentingConfigs';
@@ -24,11 +24,21 @@ interface RenderedDialog<T extends Dialog.DialogData> {
   readonly instanceApi: Dialog.DialogInstanceApi<T>;
 }
 
+const getInlineDialogSizeClass = (size: Dialog.DialogSize): Optional<string> => {
+  switch (size) {
+    case 'medium':
+      return Optional.some('tox-dialog--width-md');
+    default:
+      return Optional.none();
+  }
+};
+
 const renderInlineDialog = <T extends Dialog.DialogData>(dialogInit: DialogManager.DialogInit<T>, extra: SilverDialogCommon.WindowExtra<T>, backstage: UiFactoryBackstage, ariaAttrs: boolean = false): RenderedDialog<T> => {
   const dialogId = Id.generate('dialog');
   const dialogLabelId = Id.generate('dialog-label');
   const dialogContentId = Id.generate('dialog-content');
   const internalDialog = dialogInit.internalDialog;
+  const dialogSize = getInlineDialogSizeClass(internalDialog.size);
 
   const updateState = (_comp: AlloyComponent, incoming: DialogManager.DialogInit<T>) => Optional.some(incoming);
 
@@ -62,7 +72,10 @@ const renderInlineDialog = <T extends Dialog.DialogData>(dialogInit: DialogManag
     () => instanceApi,
     {
       onBlock: (event) => {
-        Blocking.block(dialog, (_comp, bs) => SilverDialogCommon.getBusySpec(event.message, bs, backstage.shared.providers));
+        Blocking.block(dialog, (_comp, bs) => {
+          const headerHeight = memHeader.getOpt(dialog).map((dialog) => Height.get(dialog.element));
+          return SilverDialogCommon.getBusySpec(event.message, bs, backstage.shared.providers, headerHeight);
+        });
       },
       onUnblock: () => {
         Blocking.unblock(dialog);
@@ -78,7 +91,7 @@ const renderInlineDialog = <T extends Dialog.DialogData>(dialogInit: DialogManag
   const dialog = GuiFactory.build({
     dom: {
       tag: 'div',
-      classes: [ 'tox-dialog', inlineClass ],
+      classes: [ 'tox-dialog', inlineClass, ...dialogSize.toArray() ],
       attributes: {
         role: 'dialog',
         ['aria-labelledby']: dialogLabelId

@@ -9,13 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - New `pad_empty_with_br` option that can be set to `true` to pad empty block elements with `<br>` tag instead of nbsp character. #TINY-9861
 
+### Improved
+- Updated toolbar "More" button tooltip text from "More..." to "Reveal or hide additional toolbar items". #TINY-9629
+
 ### Changed
 - Change UndoLevelType from enum to union type so that it can be easier to use. #TINY-9764
 - The pattern replacement removes spaces if they were contained in a tag that only contains a space and the text to replace. #TINY-9744
-- The `mceInsertClipboardContent` command will now also accept a `files` property to insert images. #TINY-9776
 
 ### Fixed
+- Right-clicking on an image that was in a non-editable area would open the image context menu. #TINY-10016
+- When an editable area was nested inside a non-editable area, creating lists was not possible. #TINY-10000
 - Returning an empty string in custom context menu update function would result in a small white line appearing on right click and the native browser context menu would not show up. #TINY-9842
+- Creating a list from multiple div elements would only create a partial list. #TINY-9872
 - Tab navigation incorrectly stopped around `iframe` dialog component. #TINY-9815
 - It was possible to delete the sole empty block just before a details element if it was nested within another details element. #TINY-9965
 - deleting `li` with only `br`s in it sometimes caused a crush. #TINY-6888
@@ -25,14 +30,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - In some cases pressing enter would scroll the entire page. #TINY-9828
 - The border styles of a table were incorrectly split into a longhand form after table dialog updates. #TINY-9843
 
-## 6.6.0 - TBA
+## 6.6.0 - 2023-07-12
 
 ### Added
-- Added new `bottom` to inline dialog type. This new inline dialog option allows the inline dialog to be positioned at the bottom of the editor. #TINY-9888
-- Added new `persistent` option to `WindowParams`. This new option allows the inline dialog to be persistent, meaning that it will not be closed when the user clicks outside of the dialog. #TINY-9991
+- Added a new property value — `bottom` — for inline dialog configurations that anchors the dialog to the bottom of the editor. #TINY-9888
+- Added a new property — `persistent` — for inline dialog configurations that will stop the dialog closing when clicking away from it. #TINY-9991
+- New `ai`, `ai-prompt` and `send` icons. #TINY-9942
+- Added a new property — `streamContent` — for the `iframe` dialog component. This causes `setData()` to update content without reloading the frame, and end scroll positions will be maintained as new content streams in. #TINY-10032
+- AI Assistant plugin toolbar items added to the default toolbar and AI Assistant plugin menu items added to the default menu bar. #TINY-9939
+- Added a new property — `border` — for the `iframe` dialog component that allows a border to be added. #TINY-10049
+- Added a new property — `align` — for the label dialog component that controls text alignment. #TINY-10058
 
 ### Improved
-- When defining a modal or inline dialog, if the `buttons` property is `undefined` or an empty array, the footer will now no longer be rendered. #TINY-9996
+- When defining a modal or inline dialog, if the buttons property is an empty array, or is not defined at all, the footer will now no longer be rendered. #TINY-9996
+- The `iframe` dialog component now has a minimum height of 200px. #TINY-10059
+
+### Changed
+- The icon in an `alertbanner` dialog component is no longer clickable if the _URL_ field is not specified. #TINY-10013
+
+### Fixed
+- Fixed an issue that caused the inline dialog `size` setting to have no effect. #TINY-10015
+- Fixed an issue that prevented the close button from being clicked when the dialog was blocked. #TINY-10056
 
 ## 6.5.1 - 2023-06-19
 
