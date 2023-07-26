@@ -24,7 +24,7 @@ describe('browser.tinymce.plugins.quickbars.ToolbarPositionTest', () => {
 
   const pAssertToolbarNotVisible = async () => {
     // We can't wait for something to happen, as nothing will change. So instead, just wait some time for when the toolbar would have normally shown
-    await Waiter.pWait(50);
+    await Waiter.pWait(250);
     UiFinder.notExists(SugarBody.body(), '.tox-pop__dialog .tox-toolbar');
   };
 
