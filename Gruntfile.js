@@ -81,7 +81,7 @@ const bedrockBrowser = (tests, browserName, osName, bucket, buckets, chunk, remo
         overallTimeout: 3600000,
         name: `${browserName}-${osName}`,
         browser: browserName,
-        testfiles: testFolders(tests, auto),
+        testfiles: ['modules/tinymce/src/core/test/ts/browser/annotate/*'],
         bucket: bucket,
         buckets: buckets,
         chunk: chunk,
