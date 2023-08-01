@@ -71,7 +71,7 @@ const bedrockHeadless = (tests, browser, auto) => {
   }
 };
 
-const bedrockBrowser = (tests, browserName, osName, bucket, buckets, chunk, farm, auto) => {
+const bedrockBrowser = (tests, browserName, osName, bucket, buckets, chunk, remote, auto) => {
   if (tests.length === 0) {
     return {};
   } else {
@@ -85,10 +85,10 @@ const bedrockBrowser = (tests, browserName, osName, bucket, buckets, chunk, farm
         bucket: bucket,
         buckets: buckets,
         chunk: chunk,
-        farm: farm,
+        remote: remote,
 
         // we have a few tests that don't play nicely when combined together in the monorepo
-        retries: 1
+        retries: 3
       }
     };
   }
@@ -139,7 +139,7 @@ module.exports = function (grunt) {
   const headlessBrowser = activeBrowser.endsWith("-headless") ? activeBrowser : 'chrome-headless';
   const activeOs = grunt.option('bedrock-os') || 'tests';
 
-  const farm = grunt.option('farm');
+  const remote = grunt.option('remote');
 
   const gruntConfig = {
     shell: {
@@ -150,7 +150,7 @@ module.exports = function (grunt) {
     },
     'bedrock-auto': {
       ...bedrockHeadless(headlessTests, headlessBrowser, true),
-      ...bedrockBrowser(browserTests, activeBrowser, activeOs, bucket, buckets, chunk, farm, true)
+      ...bedrockBrowser(browserTests, activeBrowser, activeOs, bucket, buckets, chunk, remote, true)
     },
     'bedrock-manual': {
       ...bedrockHeadless(headlessTests, headlessBrowser, false),
