@@ -34,9 +34,7 @@
     "headless-test-manual": "yarn -s grunt headless-manual",
     "bedrock": "bedrock --customRoutes modules/tinymce/src/core/test/json/routes.json",
     "test-one": "yarn tsc && yarn bedrock-auto -b chrome-headless -f",
-    "test-remote": "yarn -s grunt browser-auto --bedrock-browser=chrome --remote",
-    "test-remote-firefox": "yarn -s grunt browser-auto --bedrock-browser=firefox --remote",
-    "test-remote-safari": "yarn -s grunt browser-auto --bedrock-browser=safari --remote"
+    "test-remote": "yarn -s grunt browser-auto --remote"
   },
   "devDependencies": {
     "@ephox/bedrock-client": "^13.0.0",
