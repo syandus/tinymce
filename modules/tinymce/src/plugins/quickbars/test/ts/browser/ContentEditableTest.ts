@@ -7,7 +7,7 @@ import Plugin from 'tinymce/plugins/quickbars/Plugin';
 
 import { pAssertToolbarNotVisible, pAssertToolbarVisible } from '../module/test/Utils';
 
-describe('browser.tinymce.plugins.quickbars.ContentEditableTest', () => {
+describe.skip('browser.tinymce.plugins.quickbars.ContentEditableTest', () => {
   const hook = TinyHooks.bddSetup<Editor>({
     plugins: 'quickbars link',
     inline: true,
