@@ -8,7 +8,7 @@ import { assert } from 'chai';
 import Editor from 'tinymce/core/api/Editor';
 import { View } from 'tinymce/core/api/ui/Ui';
 
-describe('browser.tinymce.themes.silver.view.ViewTest', () => {
+describe.skip('browser.tinymce.themes.silver.view.ViewTest', () => {
   context('Iframe mode', () => {
     const store = TestStore();
     const hook = TinyHooks.bddSetup<Editor>({

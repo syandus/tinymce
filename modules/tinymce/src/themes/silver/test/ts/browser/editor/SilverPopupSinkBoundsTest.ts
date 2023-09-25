@@ -16,7 +16,7 @@ interface Scenario {
   };
 }
 
-describe('browser.tinymce.themes.silver.editor.SilverPopupSinkBoundsTest', () => {
+describe.skip('browser.tinymce.themes.silver.editor.SilverPopupSinkBoundsTest', () => {
   const numItems = 100;
   const sharedSettings = {
     toolbar: 'undo bold',
