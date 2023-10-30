@@ -71,6 +71,14 @@ timestamps {
       gitMerge(primaryBranch)
     }
 
+    stage('Bedrock') {
+      dir('../bedrock') {
+        pwd
+        git url: 'https://github.com/tinymce/bedrock.git', branch: 'feature/TINY-10006'
+        sh 'yarn && yarn build'
+      }
+    }
+
     def platforms = [
       [ os: "windows", browser: "chrome" ],
       [ os: "windows", browser: "firefox" ],
