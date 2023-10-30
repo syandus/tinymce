@@ -80,12 +80,16 @@ timestamps {
     }
 
     def platforms = [
-      [ os: "windows", browser: "chrome" ],
-      [ os: "windows", browser: "firefox" ],
-      [ os: "windows", browser: "MicrosoftEdge" ],
-      [ os: "macos", browser: "safari" ],
-      [ os: "macos", browser: "chrome" ],
-      [ os: "macos", browser: "firefox" ]
+      // [ os: "windows", browser: "chrome" ],
+      // [ os: "windows", browser: "firefox" ],
+      // [ os: "windows", browser: "MicrosoftEdge" ],
+      // [ os: "macos", browser: "safari" ],
+      // [ os: "macos", browser: "chrome" ],
+      // [ os: "macos", browser: "firefox" ]
+      [ browser: 'chrome', provider: 'aws' ],
+      [ browser: 'firefox', provider: 'aws' ],
+      [ browser: 'edge', provider: 'aws' ],
+      [ browser: 'safari', provider: 'lambdatest' ]
     ]
 
     def cleanAndInstall = {
@@ -107,26 +111,39 @@ timestamps {
         // closure variable - don't inline
         def c_bucket = bucket
 
-        def name = "${platform.os}-${platform.browser}${suffix}"
+        def name = "${platform.browser}-${platform.provider}${suffix}"
+        def branch = 'spike/TINY-10006' // ${env.BRANCH_NAME}
 
         processes[name] = {
           stage(name) {
-            node("bedrock-${platform.os}") {
-              echo("Bedrock tests for ${name}")
+            echo "Running test for ${name} with [${platform.browser},${platform.provider},${c_bucket},${buckets},${branch}]"
+            def test = build(
+              job: 'tinymce-remote-testing',
+              parameters: [
+                string(name: 'name', value: name),
+                string(name: 'browser', value: platform.browser),
+                string(name: 'provider', value: platform.provider),
+                string(name: 'bucket', value: c_bucket.toString()),
+                string(name: 'buckets', value: buckets.toString()),
+                string(name: 'branch', value: branch),
+              ]
+            )
+            // node("bedrock-${platform.os}") {
+            //   echo("Bedrock tests for ${name}")
 
-              echo("Checking out code on build node: $NODE_NAME")
-              checkout(scm)
+            //   echo("Checking out code on build node: $NODE_NAME")
+            //   checkout(scm)
 
-              // windows tends to not have username or email set
-              tinyGit.addAuthorConfig()
-              gitMerge(primaryBranch)
+            //   // windows tends to not have username or email set
+            //   tinyGit.addAuthorConfig()
+            //   gitMerge(primaryBranch)
 
-              cleanAndInstall()
-              exec("yarn ci")
+            //   cleanAndInstall()
+            //   exec("yarn ci")
 
-              echo("Running browser tests")
-              runBrowserTests(name, platform.browser, platform.os, c_bucket, buckets, runAllTests)
-            }
+            //   echo("Running browser tests")
+            //   runBrowserTests(name, platform.browser, platform.os, c_bucket, buckets, runAllTests)
+            // }
           }
         }
       }
