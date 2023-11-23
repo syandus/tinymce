@@ -28,13 +28,15 @@ def runTests(String name, String bedrockCommand, Boolean runAll) {
 }
 
 def runBrowserTests(String name, String browser, String os, Integer bucket, Integer buckets, Boolean runAll) {
+  def awsOpts = " --sishDomain=sish.osu.tiny.work --devicefarmArn=arn:aws:devicefarm:us-west-2:103651136441:testgrid-project:79ff2b40-fe26-440f-9539-53163c25442e"
   def bedrockCommand =
     "yarn grunt browser-auto" +
       " --chunk=400" +
       " --bedrock-os=" + os +
       " --bedrock-browser=" + browser +
       " --bucket=" + bucket +
-      " --buckets=" + buckets;
+      " --buckets=" + buckets +
+    "${provider == 'aws' ? awsOpts : ''}"
 
   runTests(name, bedrockCommand, runAll);
 }
